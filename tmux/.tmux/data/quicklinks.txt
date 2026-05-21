@@ -1,0 +1,6 @@
+ GitHub|https://github.com
+ ChatGPT|https://chat.openai.com
+ Reddit|https://reddit.com
+󰊤 YouTube|https://youtube.com
+ Arch Wiki|https://wiki.archlinux.org
+ StackOverflow|https://stackoverflow.com
