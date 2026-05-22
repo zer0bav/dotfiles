@@ -14,10 +14,19 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
     git
-    archlinux
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
+
+# Load OS-specific plugins dynamically
+if [[ "$OSTYPE" == "linux-gnu"* && -f /etc/arch-release ]]; then
+    plugins+=(archlinux)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    plugins+=(macos)
+fi
+
+# Disable insecure directories verification warning
+ZSH_DISABLE_COMPFIX="true"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -30,7 +39,7 @@ source $ZSH/oh-my-zsh.sh
 #pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 
 # fastfetch. Will be disabled if above colorscript was chosen to install
-fastfetch
+#fastfetch
 # Set-up icons for files/directories in terminal using lsd
 alias ls='lsd'
 alias l='ls -l'

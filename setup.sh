@@ -143,7 +143,7 @@ install_dependencies() {
     case $PLATFORM_CHOICE in
         1)
             status_info "Installing dependencies on Arch Linux via pacman..."
-            sudo pacman -Syu --needed git curl tmux zsh neovim kitty fastfetch stow lazygit cava || status_error "Arch package install failed."
+            sudo pacman -Syu --needed git curl tmux zsh neovim kitty fastfetch stow lazygit cava lsd fzf || status_error "Arch package install failed."
             if [[ "$INSTALL_HYPR" =~ ^[Yy]$ || "$INSTALL_WAYBAR" =~ ^[Yy]$ ]]; then
                 sudo pacman -S --needed hyprland waybar swaync wlogout rofi wallust || status_warning "Desktop packages install failed."
             fi
@@ -151,15 +151,20 @@ install_dependencies() {
         2)
             status_info "Installing dependencies on Debian/Ubuntu via apt..."
             sudo apt update
-            sudo apt install -y git curl tmux zsh neovim kitty fastfetch stow lazygit cava || status_error "Debian package install failed."
+            sudo apt install -y git curl tmux zsh neovim kitty fastfetch stow lazygit cava lsd fzf || status_error "Debian package install failed."
             ;;
         3)
             status_info "Installing dependencies on macOS via Homebrew..."
             if ! command -v brew &>/dev/null; then
                 status_warning "Homebrew not found. Installing Homebrew..."
                 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                if [ -f /opt/homebrew/bin/brew ]; then
+                    eval "$(/opt/homebrew/bin/brew shellenv)"
+                elif [ -f /usr/local/bin/brew ]; then
+                    eval "$(/usr/local/bin/brew shellenv)"
+                fi
             fi
-            brew install git curl tmux zsh neovim kitty fastfetch stow lazygit cava || status_error "Homebrew package install failed."
+            brew install git curl tmux zsh neovim kitty fastfetch stow lazygit cava lsd fzf || status_error "Homebrew package install failed."
             ;;
         *)
             status_info "Skipping package installation."

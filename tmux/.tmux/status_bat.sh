@@ -1,8 +1,24 @@
 #!/usr/bin/env bash
 
-# Read capacity and status of BAT0
-capacity=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)
-status=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null)
+# Read capacity and status dynamically
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  batt_info=$(pmset -g batt 2>/dev/null)
+  capacity=$(echo "$batt_info" | grep -oE '[0-9]+%' | head -n1 | tr -d '%')
+  if echo "$batt_info" | grep -q 'charging'; then
+    status="Charging"
+  elif echo "$batt_info" | grep -q 'discharging'; then
+    status="Discharging"
+  else
+    status="Full"
+  fi
+else
+  capacity=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)
+  status=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null)
+  if [ -z "$capacity" ]; then
+    capacity=$(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null)
+    status=$(cat /sys/class/power_supply/BAT1/status 2>/dev/null)
+  fi
+fi
 
 if [ -z "$capacity" ]; then
   exit 0

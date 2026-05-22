@@ -62,9 +62,13 @@
 
   # --- CUSTOM SEGMENT FUNCTIONS ---
   
-  # 1. Arch & Cat Pill (Placed at the very beginning of the left prompt)
+  # 1. OS & Cat Pill (Placed at the very beginning of the left prompt)
   prompt_my_arch_logo() {
-    p10k segment -b "$pill_bg" -f "$accent_blue" -t "󰣇 %F{white}Arch %F{red}󰄛"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      p10k segment -b "$pill_bg" -f "$accent_blue" -t " %F{white}macOS %F{red}󰄛"
+    else
+      p10k segment -b "$pill_bg" -f "$accent_blue" -t "󰣇 %F{white}Arch %F{red}󰄛"
+    fi
   }
 
   # 2. Target IP Pill
@@ -82,8 +86,17 @@
   prompt_my_vpn() {
     local vpn_ip=""
     local vpn_dev=""
-    for dev in tun0 tun1 wg0 wg1 ppp0; do
-      local ip=$(ip -4 addr show "$dev" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+    for dev in tun0 tun1 wg0 wg1 ppp0 utun0 utun1 utun2 utun3; do
+      local ip=""
+      if [[ "$OSTYPE" == "darwin"* ]]; then
+        ip=$(ifconfig "$dev" 2>/dev/null | awk '/inet / {print $2}')
+      else
+        if command -v ip >/dev/null 2>&1; then
+          ip=$(ip -4 addr show "$dev" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+        else
+          ip=$(ifconfig "$dev" 2>/dev/null | awk '/inet / {print $2}')
+        fi
+      fi
       if [[ -n "$ip" ]]; then
         vpn_ip="$ip"
         vpn_dev="$dev"
@@ -97,7 +110,22 @@
 
   # 4. Internet Status Pill
   prompt_my_internet_status() {
-    if ip route | grep -q default; then
+    local has_internet=false
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      if route -n get default 2>/dev/null | grep -q gateway; then
+        has_internet=true
+      fi
+    else
+      if command -v ip >/dev/null 2>&1; then
+        if ip route | grep -q default; then
+          has_internet=true
+        fi
+      elif route -n | grep -q '^0.0.0.0'; then
+        has_internet=true
+      fi
+    fi
+
+    if [[ "$has_internet" == "true" ]]; then
       p10k segment -b "$pill_bg" -f "$accent_green" -t " %F{white}Online"
     else
       p10k segment -b "$pill_bg" -f "$accent_red" -t " %F{white}Offline"
