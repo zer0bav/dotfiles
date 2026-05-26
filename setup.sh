@@ -98,6 +98,7 @@ read -p "Install Kitty Config? [Y/n]: " INSTALL_KITTY
 read -p "Install Fastfetch Config? [Y/n]: " INSTALL_FASTFETCH
 read -p "Install Cava Config? [Y/n]: " INSTALL_CAVA
 read -p "Install Lazygit Config? [Y/n]: " INSTALL_LAZYGIT
+read -p "Install Opencode Config? [Y/n]: " INSTALL_OPENCODE
 
 # Wayland/Hyprland choices (only show if not on macOS)
 INSTALL_HYPR="n"
@@ -124,6 +125,7 @@ INSTALL_KITTY=${INSTALL_KITTY:-Y}
 INSTALL_FASTFETCH=${INSTALL_FASTFETCH:-Y}
 INSTALL_CAVA=${INSTALL_CAVA:-Y}
 INSTALL_LAZYGIT=${INSTALL_LAZYGIT:-Y}
+INSTALL_OPENCODE=${INSTALL_OPENCODE:-Y}
 INSTALL_HYPR=${INSTALL_HYPR:-Y}
 INSTALL_WAYBAR=${INSTALL_WAYBAR:-Y}
 INSTALL_ROFI=${INSTALL_ROFI:-Y}
@@ -255,6 +257,12 @@ fi
 if [[ "$INSTALL_LAZYGIT" =~ ^[Yy]$ ]]; then
     status_info "Installing Lazygit Configurations..."
     backup_and_link "$DOTFILES_DIR/lazygit" "$HOME/.config/lazygit"
+fi
+
+# OPENCODE Deployment
+if [[ "$INSTALL_OPENCODE" =~ ^[Yy]$ ]]; then
+    status_info "Installing Opencode Configurations..."
+    backup_and_link "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
 fi
 
 # HYPRLAND Deployment

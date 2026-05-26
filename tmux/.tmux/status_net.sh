@@ -11,31 +11,17 @@ fi
 vpn_ip=""
 vpn_dev=""
 
-# Helper function to get IP address of a device on Linux or macOS
-get_ip_of_dev() {
-  local dev="$1"
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    ifconfig "$dev" 2>/dev/null | awk '/inet / {print $2}'
-  else
-    if command -v ip >/dev/null 2>&1; then
-      ip -4 addr show "$dev" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1
-    else
-      ifconfig "$dev" 2>/dev/null | awk '/inet / {print $2}'
-    fi
-  fi
-}
-
 if [ -n "$selected_dev" ]; then
   # Try to read the IP of the selected interface
-  vpn_ip=$(get_ip_of_dev "$selected_dev")
+  vpn_ip=$(ip -4 addr show "$selected_dev" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
   vpn_dev="$selected_dev"
 fi
 
 # Fallback to auto-detection if no selected interface, or selected interface has no IP
 if [ -z "$vpn_ip" ]; then
-  # Find first active VPN interface (Linux & macOS standard devices)
-  for dev in tun0 tun1 wg0 wg1 ppp0 utun0 utun1 utun2 utun3; do
-    ip=$(get_ip_of_dev "$dev")
+  # Find first active VPN interface
+  for dev in tun0 tun1 wg0 wg1 ppp0; do
+    ip=$(ip -4 addr show "$dev" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
     if [ -n "$ip" ]; then
       vpn_ip="$ip"
       vpn_dev="$dev"
@@ -46,26 +32,9 @@ fi
 
 # Fallback to local IP if still no IP
 if [ -z "$vpn_ip" ]; then
-  local_ip=""
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    # On macOS, get IP of default gateway interface
-    def_dev=$(route -n get default 2>/dev/null | awk '/interface:/ {print $2}')
-    if [ -n "$def_dev" ]; then
-      local_ip=$(ifconfig "$def_dev" 2>/dev/null | awk '/inet / {print $2}')
-    fi
-  else
-    # On Linux
-    if command -v ip >/dev/null 2>&1; then
-      local_ip=$(ip -4 addr show wlan0 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
-      if [ -z "$local_ip" ]; then
-        local_ip=$(ip -4 addr show | grep -vE '127.0.0.1|docker|veth|br-|lo' | awk '/inet / {print $2}' | cut -d/ -f1 | head -n1)
-      fi
-    else
-      local_ip=$(ifconfig wlan0 2>/dev/null | awk '/inet / {print $2}')
-      if [ -z "$local_ip" ]; then
-        local_ip=$(ifconfig | grep -vE '127.0.0.1|docker|veth|br-|lo' | awk '/inet / {print $2}' | head -n1)
-      fi
-    fi
+  local_ip=$(ip -4 addr show wlan0 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+  if [ -z "$local_ip" ]; then
+    local_ip=$(ip -4 addr show | grep -vE '127.0.0.1|docker|veth|br-|lo' | awk '/inet / {print $2}' | cut -d/ -f1 | head -n1)
   fi
   
   if [ -n "$local_ip" ]; then
@@ -77,7 +46,7 @@ if [ -z "$vpn_ip" ]; then
   fi
 else
   # Display selected or detected active interface
-  if [[ "$vpn_dev" =~ ^(tun|wg|ppp|utun) ]]; then
+  if [[ "$vpn_dev" =~ ^(tun|wg|ppp) ]]; then
     color="#ff5555" # Dracula Red for VPNs
     icon="󰆧"
   else

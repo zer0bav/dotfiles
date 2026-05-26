@@ -1,0 +1,424 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "github-copilot/claude-opus-4.7",
+      "variant": "max",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/kimi-k2.5"
+        },
+        {
+          "model": "github-copilot/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "zai-coding-plan/glm-5"
+        },
+        {
+          "model": "opencode/glm-5"
+        },
+        {
+          "model": "opencode/big-pickle"
+        }
+      ]
+    },
+    "hephaestus": {
+      "model": "github-copilot/gpt-5.5",
+      "variant": "medium",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "medium"
+        }
+      ]
+    },
+    "oracle": {
+      "model": "github-copilot/gpt-5.5",
+      "variant": "high",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "high"
+        },
+        {
+          "model": "google/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        }
+      ]
+    },
+    "librarian": {
+      "model": "zai-coding-plan/glm-4.7",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-haiku-4-5"
+        },
+        {
+          "model": "opencode/gpt-5.4-nano"
+        }
+      ]
+    },
+    "explore": {
+      "model": "opencode/claude-haiku-4-5",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.4-nano"
+        }
+      ]
+    },
+    "multimodal-looker": {
+      "model": "opencode/gpt-5.5",
+      "variant": "medium",
+      "fallback_models": [
+        {
+          "model": "zai-coding-plan/glm-4.6v"
+        },
+        {
+          "model": "github-copilot/gpt-5-nano"
+        },
+        {
+          "model": "opencode/gpt-5-nano"
+        }
+      ]
+    },
+    "prometheus": {
+      "model": "github-copilot/claude-opus-4.7",
+      "variant": "max",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "github-copilot/gpt-5.5",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "high"
+        },
+        {
+          "model": "google/gemini-3.1-pro-preview"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro"
+        }
+      ]
+    },
+    "metis": {
+      "model": "github-copilot/claude-sonnet-4.6",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "github-copilot/gpt-5.5",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "high"
+        }
+      ]
+    },
+    "momus": {
+      "model": "github-copilot/gpt-5.5",
+      "variant": "xhigh",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "xhigh"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "google/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        }
+      ]
+    },
+    "atlas": {
+      "model": "github-copilot/claude-sonnet-4.6",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        },
+        {
+          "model": "github-copilot/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "medium"
+        }
+      ]
+    },
+    "sisyphus-junior": {
+      "model": "github-copilot/claude-sonnet-4.6",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        },
+        {
+          "model": "github-copilot/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "opencode/big-pickle"
+        }
+      ]
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "google/gemini-3.1-pro-preview",
+      "variant": "high",
+      "fallback_models": [
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        },
+        {
+          "model": "zai-coding-plan/glm-5"
+        },
+        {
+          "model": "opencode/glm-5"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        }
+      ]
+    },
+    "ultrabrain": {
+      "model": "opencode/gpt-5.5",
+      "variant": "xhigh",
+      "fallback_models": [
+        {
+          "model": "google/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        }
+      ]
+    },
+    "deep": {
+      "model": "github-copilot/gpt-5.5",
+      "variant": "medium",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.5",
+          "variant": "medium"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "google/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        }
+      ]
+    },
+    "artistry": {
+      "model": "google/gemini-3.1-pro-preview",
+      "variant": "high",
+      "fallback_models": [
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview",
+          "variant": "high"
+        },
+        {
+          "model": "opencode/gemini-3.1-pro",
+          "variant": "high"
+        },
+        {
+          "model": "github-copilot/claude-opus-4.7",
+          "variant": "max"
+        },
+        {
+          "model": "opencode/claude-opus-4-7",
+          "variant": "max"
+        },
+        {
+          "model": "github-copilot/gpt-5.5"
+        },
+        {
+          "model": "opencode/gpt-5.5"
+        }
+      ]
+    },
+    "quick": {
+      "model": "github-copilot/gpt-5.4-mini",
+      "fallback_models": [
+        {
+          "model": "opencode/gpt-5.4-mini"
+        },
+        {
+          "model": "github-copilot/claude-haiku-4.5"
+        },
+        {
+          "model": "opencode/claude-haiku-4-5"
+        },
+        {
+          "model": "google/gemini-3-flash-preview"
+        },
+        {
+          "model": "github-copilot/gemini-3-flash-preview"
+        },
+        {
+          "model": "opencode/gemini-3-flash"
+        },
+        {
+          "model": "opencode/gpt-5-nano"
+        }
+      ]
+    },
+    "unspecified-low": {
+      "model": "github-copilot/claude-sonnet-4.6",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        },
+        {
+          "model": "opencode/gpt-5.3-codex",
+          "variant": "medium"
+        },
+        {
+          "model": "google/gemini-3-flash-preview"
+        },
+        {
+          "model": "github-copilot/gemini-3-flash-preview"
+        },
+        {
+          "model": "opencode/gemini-3-flash"
+        }
+      ]
+    },
+    "unspecified-high": {
+      "model": "github-copilot/claude-sonnet-4.6",
+      "fallback_models": [
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        },
+        {
+          "model": "opencode/gpt-5.3-codex",
+          "variant": "medium"
+        },
+        {
+          "model": "google/gemini-3-flash-preview"
+        },
+        {
+          "model": "github-copilot/gemini-3-flash-preview"
+        },
+        {
+          "model": "opencode/gemini-3-flash"
+        }
+      ]
+    },
+    "writing": {
+      "model": "google/gemini-3-flash-preview",
+      "fallback_models": [
+        {
+          "model": "github-copilot/gemini-3-flash-preview"
+        },
+        {
+          "model": "opencode/gemini-3-flash"
+        },
+        {
+          "model": "github-copilot/claude-sonnet-4.6"
+        },
+        {
+          "model": "opencode/claude-sonnet-4-6"
+        }
+      ]
+    }
+  }
+}
